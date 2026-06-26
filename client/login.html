@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | Bhullar Fitness</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script>(function(){try{if(localStorage.getItem('bhullar_theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}})();</script>
+  <script src="js/theme.js"></script>
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/auth.css">
+</head>
+<body class="auth-body">
+
+  <button class="theme-toggle" data-theme-toggle aria-label="Toggle theme" style="position:fixed; top:18px; right:18px; z-index:20;"><i data-lucide="sun"></i></button>
+
+  <!-- Left brand panel -->
+  <div class="auth-visual">
+    <div class="auth-visual-overlay"></div>
+    <div class="auth-visual-content">
+      <a href="index.html" class="nav-logo auth-logo">
+        <span class="logo-bolt">⚡</span>
+        <span>BHULLAR <span class="accent">FITNESS</span></span>
+      </a>
+      <h1 class="auth-headline">Your transformation<br>continues here.</h1>
+      <p class="auth-sub">Track your membership, payments, and progress — all in one place.</p>
+      <div class="auth-stats">
+        <div><span class="num">1,200+</span><span class="lbl">Members</span></div>
+        <div><span class="num">20+</span><span class="lbl">Trainers</span></div>
+        <div><span class="num">12yr</span><span class="lbl">Experience</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right form panel -->
+  <div class="auth-form-panel">
+    <div class="auth-box">
+
+      <a href="index.html" class="auth-back"><i data-lucide="arrow-left"></i> Back to home</a>
+
+      <h2 class="auth-title">Welcome back</h2>
+      <p class="auth-desc">Sign in to access your dashboard.</p>
+
+      <!-- Role tabs -->
+      <div class="auth-tabs">
+        <button class="auth-tab active" data-role="member">
+          <i data-lucide="user"></i> Member
+        </button>
+        <button class="auth-tab" data-role="admin">
+          <i data-lucide="shield"></i> Admin
+        </button>
+      </div>
+
+      <!-- Error banner -->
+      <div class="auth-error" id="authError">
+        <i data-lucide="alert-circle"></i>
+        <span id="authErrorMsg"></span>
+      </div>
+
+      <!-- Login form -->
+      <form id="loginForm" novalidate>
+        <div class="fg">
+          <label for="email">Email Address</label>
+          <div class="input-icon">
+            <i data-lucide="mail"></i>
+            <input type="email" id="email" placeholder="you@email.com" autocomplete="email" required>
+          </div>
+          <span class="ferr"></span>
+        </div>
+
+        <div class="fg">
+          <label for="password">Password</label>
+          <div class="input-icon">
+            <i data-lucide="lock"></i>
+            <input type="password" id="password" placeholder="••••••••" autocomplete="current-password" required>
+            <button type="button" class="pw-toggle" id="pwToggle" aria-label="Show password">
+              <i data-lucide="eye"></i>
+            </button>
+          </div>
+          <span class="ferr"></span>
+        </div>
+
+        <div class="auth-row">
+          <label class="checkbox">
+            <input type="checkbox" id="remember"> <span>Remember me</span>
+          </label>
+          <a href="#" class="auth-link">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full btn-lg" id="loginBtn">
+          <span class="btn-text">Sign In</span>
+          <span class="btn-spinner" hidden></span>
+        </button>
+      </form>
+
+      <p class="auth-foot">
+        New to Bhullar Fitness?
+        <a href="#" class="auth-link">Visit the gym to register</a>
+      </p>
+
+      <!-- Demo hint (remove in production) -->
+      <div class="demo-hint">
+        <p><strong>Demo:</strong> member@bhullar.in / member123 · admin@bhullar.in / admin123</p>
+      </div>
+
+    </div>
+  </div>
+
+  <script type="module" src="js/auth.js"></script>
+</body>
+</html>

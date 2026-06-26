@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Member Dashboard | Bhullar Fitness</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script>(function(){try{if(localStorage.getItem('bhullar_theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}})();</script>
+  <script src="js/theme.js"></script>
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body class="dash-body">
+
+  <div class="sidebar-backdrop" id="sideBackdrop"></div>
+
+  <div class="dash-shell">
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <a href="index.html" class="sidebar-logo">
+        <span class="logo-bolt">⚡</span> BHULLAR <span class="accent">FITNESS</span>
+      </a>
+      <nav class="side-nav">
+        <a class="side-link active" data-scroll="#memberStats"><i data-lucide="layout-dashboard"></i> Dashboard</a>
+        <a class="side-link" data-scroll="#profileCard"><i data-lucide="user"></i> My Profile</a>
+        <a class="side-link" data-scroll="#paymentsCard"><i data-lucide="credit-card"></i> Payments</a>
+        <a class="side-link" data-scroll="#notificationsCard">
+          <i data-lucide="bell"></i> Notifications
+          <span class="side-badge" id="notifBadge">1</span>
+        </a>
+        <a class="side-link" data-scroll="#membershipCard"><i data-lucide="dumbbell"></i> My Plan</a>
+        <a class="side-link"><i data-lucide="settings"></i> Settings</a>
+      </nav>
+      <div class="side-foot">
+        <a class="side-link logout" id="logoutBtn"><i data-lucide="log-out"></i> Logout</a>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <div class="dash-main">
+
+      <!-- Topbar -->
+      <header class="topbar">
+        <div style="display:flex; align-items:center; gap:14px;">
+          <button class="topbar-icon-btn mobile-menu-btn" id="menuBtn"><i data-lucide="menu"></i></button>
+          <div class="topbar-left">
+            <h1>Dashboard</h1>
+            <p id="todayDate"></p>
+          </div>
+        </div>
+        <div class="topbar-right">
+          <button class="topbar-icon-btn" data-theme-toggle aria-label="Toggle theme"><i data-lucide="sun"></i></button>
+          <button class="topbar-icon-btn" id="bellBtn"><i data-lucide="bell"></i><span class="notif-dot"></span></button>
+          <div class="user-chip">
+            <div class="user-avatar" id="userAvatar">R</div>
+            <div class="user-meta">
+              <p class="u-name" id="userName">Rahul Kumar</p>
+              <p class="u-role">Member</p>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Content -->
+      <main class="dash-content">
+
+        <!-- Welcome -->
+        <section class="welcome-banner">
+          <h2 id="welcomeMsg">Welcome back, Rahul! 💪</h2>
+          <p>Here's your membership overview. Keep crushing your goals — every rep counts.</p>
+        </section>
+
+        <!-- Quick stats -->
+        <section class="stat-grid cols-4" id="memberStats">
+          <!-- filled by JS -->
+        </section>
+
+        <!-- Profile + Membership -->
+        <section class="member-grid">
+
+          <!-- Profile -->
+          <div class="dash-card" id="profileCard">
+            <div class="card-head"><h3>My Profile</h3><span class="badge badge-plan" id="profilePlan">Pro Plan</span></div>
+            <div class="profile-rows" id="profileRows"><!-- JS --></div>
+          </div>
+
+          <!-- Membership status -->
+          <div class="dash-card membership-card" id="membershipCard">
+            <div class="card-head"><h3>Membership</h3></div>
+            <div class="expiry-ring-wrap">
+              <div class="expiry-ring">
+                <svg width="120" height="120">
+                  <circle cx="60" cy="60" r="52" fill="none" stroke="var(--bg-3)" stroke-width="10"/>
+                  <circle id="ringProgress" cx="60" cy="60" r="52" fill="none" stroke="var(--accent)" stroke-width="10"
+                          stroke-linecap="round" stroke-dasharray="326.7" stroke-dashoffset="326.7"/>
+                </svg>
+                <div class="ring-num"><b id="daysLeft">0</b><span>days left</span></div>
+              </div>
+              <div class="expiry-detail">
+                <div class="ed-row"><span class="ed-label">Joining Date</span><span class="ed-value" id="joinDate">—</span></div>
+                <div class="ed-row"><span class="ed-label">Expiry Date</span><span class="ed-value" id="expiryDate">—</span></div>
+                <div class="ed-row"><span class="ed-label">Status</span><span id="statusBadge"></span></div>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-full" id="renewBtn"><i data-lucide="refresh-cw"></i> Renew Membership</button>
+          </div>
+
+        </section>
+
+        <!-- Payments + Notifications -->
+        <section class="member-grid">
+
+          <!-- Payment history -->
+          <div class="dash-card" id="paymentsCard">
+            <div class="card-head"><h3>Payment History</h3><span class="badge badge-paid" id="payStatusBadge">Paid</span></div>
+            <div class="pay-list" id="payList"><!-- JS --></div>
+          </div>
+
+          <!-- Notifications -->
+          <div class="dash-card" id="notificationsCard">
+            <div class="card-head"><h3>Notifications</h3></div>
+            <div class="notif-list" id="notifList"><!-- JS --></div>
+          </div>
+
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <div class="toast-stack" id="toastStack"></div>
+
+  <script type="module" src="js/member.js"></script>
+</body>
+</html>

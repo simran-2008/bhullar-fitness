@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Bhullar Fitness</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script>(function(){try{if(localStorage.getItem('bhullar_theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}})();</script>
+  <script src="js/theme.js"></script>
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body class="dash-body">
+
+  <div class="sidebar-backdrop" id="sideBackdrop"></div>
+
+  <div class="dash-shell">
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <a href="index.html" class="sidebar-logo">
+        <span class="logo-bolt">⚡</span> BHULLAR <span class="accent">FITNESS</span>
+      </a>
+      <nav class="side-nav">
+        <a class="side-link active" data-scroll="#adminStats"><i data-lucide="layout-dashboard"></i> Overview</a>
+        <a class="side-link" data-scroll="#membersCard"><i data-lucide="users"></i> Members</a>
+        <a class="side-link" data-scroll="#pendingCard"><i data-lucide="credit-card"></i> Payments</a>
+        <a class="side-link" data-action="reminders"><i data-lucide="bell"></i> Reminders</a>
+        <a class="side-link" data-scroll="#adminStats"><i data-lucide="bar-chart-3"></i> Reports</a>
+        <a class="side-link"><i data-lucide="settings"></i> Settings</a>
+      </nav>
+      <div class="side-foot">
+        <a class="side-link logout" id="logoutBtn"><i data-lucide="log-out"></i> Logout</a>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <div class="dash-main">
+
+      <!-- Topbar -->
+      <header class="topbar">
+        <div style="display:flex; align-items:center; gap:14px;">
+          <button class="topbar-icon-btn mobile-menu-btn" id="menuBtn"><i data-lucide="menu"></i></button>
+          <div class="topbar-left">
+            <h1>Admin Overview</h1>
+            <p id="todayDate"></p>
+          </div>
+        </div>
+        <div class="topbar-right">
+          <button class="topbar-icon-btn" data-theme-toggle aria-label="Toggle theme"><i data-lucide="sun"></i></button>
+          <button class="topbar-icon-btn" id="sendRemindersBtn" title="Send expiry reminders"><i data-lucide="send"></i></button>
+          <div class="user-chip">
+            <div class="user-avatar">A</div>
+            <div class="user-meta">
+              <p class="u-name" id="adminName">Gym Admin</p>
+              <p class="u-role">Administrator</p>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Content -->
+      <main class="dash-content">
+
+        <!-- Stat cards -->
+        <section class="stat-grid cols-5" id="adminStats"><!-- JS --></section>
+
+        <!-- Pending UPI payments (awaiting verification) -->
+        <div class="dash-card" id="pendingCard" style="margin-bottom:24px;">
+          <div class="card-head">
+            <h3>Pending Payments</h3>
+            <span class="badge badge-pending" id="pendingCount">0</span>
+          </div>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Member</th>
+                  <th>Plan</th>
+                  <th>Amount</th>
+                  <th>UPI Ref (UTR)</th>
+                  <th>Submitted</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="pendingBody"><!-- JS --></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Members management -->
+        <div class="dash-card" id="membersCard">
+          <div class="card-head">
+            <h3>Members</h3>
+            <button class="btn btn-primary btn-sm" id="addMemberBtn"><i data-lucide="plus"></i> Add Member</button>
+          </div>
+
+          <!-- Toolbar -->
+          <div class="toolbar">
+            <div class="search-box">
+              <i data-lucide="search"></i>
+              <input type="text" id="searchInput" placeholder="Search by name, email, or phone...">
+            </div>
+            <div class="toolbar-actions">
+              <select class="filter-select" id="statusFilter">
+                <option value="all">All Status</option>
+                <option value="Active">Active</option>
+                <option value="Expiring Soon">Expiring Soon</option>
+                <option value="Expired">Expired</option>
+              </select>
+              <select class="filter-select" id="planFilter">
+                <option value="all">All Plans</option>
+                <option value="Basic">Basic</option>
+                <option value="Pro">Pro</option>
+                <option value="Elite">Elite</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Table -->
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Member</th>
+                  <th>Phone</th>
+                  <th>Plan</th>
+                  <th>Expiry</th>
+                  <th>Days Left</th>
+                  <th>Status</th>
+                  <th>Payment</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="membersBody"><!-- JS --></tbody>
+            </table>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ===== Add / Edit Member Modal ===== -->
+  <div class="modal-backdrop" id="memberModal">
+    <div class="modal">
+      <div class="modal-head">
+        <h3 id="modalTitle">Add Member</h3>
+        <button class="modal-close" id="modalClose"><i data-lucide="x"></i></button>
+      </div>
+      <div class="modal-body">
+        <form id="memberForm">
+          <input type="hidden" id="memberId">
+          <div class="form-row">
+            <div class="fg"><label>Full Name</label><input type="text" id="fName" required></div>
+            <div class="fg"><label>Phone</label><input type="tel" id="fPhone" required></div>
+          </div>
+          <div class="fg" style="margin-top:16px;"><label>Email</label><input type="email" id="fEmail" required></div>
+          <div class="form-row" style="margin-top:16px;">
+            <div class="fg">
+              <label>Membership Plan</label>
+              <select id="fPlan">
+                <option value="Basic">Basic — ₹999/mo</option>
+                <option value="Pro">Pro — ₹1,999/mo</option>
+                <option value="Elite">Elite — ₹3,499/mo</option>
+              </select>
+            </div>
+            <div class="fg"><label>Expiry Date</label><input type="date" id="fExpiry" required></div>
+          </div>
+          <div class="form-row" style="margin-top:16px;">
+            <div class="fg"><label>Joining Date</label><input type="date" id="fJoining" required></div>
+            <div class="fg">
+              <label>Payment Status</label>
+              <select id="fPayStatus">
+                <option value="Paid">Paid</option>
+                <option value="Pending">Pending</option>
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-foot">
+        <button class="btn btn-outline btn-sm" id="modalCancel">Cancel</button>
+        <button class="btn btn-primary btn-sm" id="modalSave"><i data-lucide="check"></i> Save Member</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Delete Confirm Modal ===== -->
+  <div class="modal-backdrop" id="deleteModal">
+    <div class="modal" style="max-width:420px;">
+      <div class="modal-head">
+        <h3>Delete Member</h3>
+        <button class="modal-close" id="deleteClose"><i data-lucide="x"></i></button>
+      </div>
+      <div class="modal-body">
+        <p style="color:var(--text-2);">Are you sure you want to delete <strong id="deleteName"></strong>? This action cannot be undone.</p>
+      </div>
+      <div class="modal-foot">
+        <button class="btn btn-outline btn-sm" id="deleteCancel">Cancel</button>
+        <button class="btn btn-sm" id="deleteConfirm" style="background:var(--danger); color:#fff;"><i data-lucide="trash-2"></i> Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-stack" id="toastStack"></div>
+
+  <script type="module" src="js/admin.js"></script>
+</body>
+</html>

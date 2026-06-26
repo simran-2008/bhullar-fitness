@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>(function(){try{if(localStorage.getItem('bhullar_theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}})();</script>
+  <title>Pay & Renew | Bhullar Fitness</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="js/theme.js"></script>
+  <!-- QR code generator (UPI) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body class="dash-body">
+
+  <button class="theme-toggle" data-theme-toggle aria-label="Toggle theme" style="position:fixed; top:18px; right:18px; z-index:20;"><i data-lucide="sun"></i></button>
+
+  <div class="pay-page">
+    <div class="pay-card dash-card">
+
+      <a href="dashboard.html" class="pay-back"><i data-lucide="arrow-left"></i> Back to dashboard</a>
+
+      <div class="pay-head">
+        <div class="logo-bolt">⚡</div>
+        <h1>Renew Membership</h1>
+        <p class="pay-sub">Choose a plan, scan the QR, and pay. We'll activate it once verified.</p>
+      </div>
+
+      <!-- Plan selector (renew the same plan or switch) -->
+      <div class="plan-pick" id="planPick"><!-- options injected by JS --></div>
+
+      <div class="pay-amount-big" id="payAmount">₹—</div>
+
+      <div class="upi-qr" id="upiQr"><!-- QR injected here --></div>
+      <p class="pay-scan">Scan with any UPI app — the amount is already filled in.</p>
+
+      <div class="pay-details">
+        <div class="pay-drow"><span>Pay to</span><strong id="payeeName">—</strong></div>
+        <div class="pay-drow"><span>UPI ID</span><strong id="upiId">—</strong></div>
+      </div>
+
+      <a class="btn btn-outline btn-full" id="openApp" href="#"><i data-lucide="smartphone"></i> Open UPI app (on phone)</a>
+
+      <div class="pay-divider"><span>then confirm</span></div>
+
+      <div class="fg">
+        <label for="utr">Enter the UPI reference / UTR number after paying</label>
+        <input type="text" id="utr" placeholder="e.g. 401234567890" inputmode="numeric">
+        <span class="ferr" id="utrErr"></span>
+      </div>
+
+      <button class="btn btn-primary btn-full btn-lg" id="submitBtn"><i data-lucide="check-circle-2"></i> I've Paid — Submit</button>
+      <p class="pay-note">An admin verifies your payment and activates the renewal. It shows as “Pending” in your payment history until then.</p>
+
+    </div>
+  </div>
+
+  <div class="toast-stack" id="toastStack"></div>
+
+  <script type="module" src="js/payment.js"></script>
+</body>
+</html>
