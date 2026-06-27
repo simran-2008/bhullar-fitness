@@ -5,7 +5,7 @@
    ================================================================= */
 
 // Point this at your deployed backend, e.g. https://api.bhullarfitness.in/api
-export const API_BASE = 'https://bhullar-fitness.onrender.com';
+export const API_BASE = 'https://bhullar-fitness.onrender.com/api';
 
 // When true, the frontend runs on local mock data so you can preview
 // the dashboards without a running server. Set to false to use the API.
